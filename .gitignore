@@ -1,0 +1,12 @@
+config
+demo-cobol-projects
+docs
+scripts
+source-projects
+tools
+AGENT.md
+README.md
+work/cobol-springboot-demo/generated-sources*
+work/cobol-springboot-demo/src
+work/cobol-springboot-demo/target
+work/cobol-springboot-demo/pom.xml

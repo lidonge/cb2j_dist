@@ -1,0 +1,106 @@
+[
+  {
+    "id": "01_create_daily_hkd_success",
+    "file": "schema-valid-full/01_create_daily_hkd_success.json",
+    "business_fragment": "business-fragments/01_create_daily_hkd_success_agsj187_fragment.json",
+    "title": "Create daily HKD standing instruction - happy path candidate",
+    "expected": "Expected to reach CREATE/insert branch if CIF/customer and account master data exist and STORE-REF is unused.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "02_create_weekly_hkd_with_term_date",
+    "file": "schema-valid-full/02_create_weekly_hkd_with_term_date.json",
+    "business_fragment": "business-fragments/02_create_weekly_hkd_with_term_date_agsj187_fragment.json",
+    "title": "Create weekly HKD SI with definite term date",
+    "expected": "Expected to check holiday/week-day logic, then CREATE if master data is valid.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "03_create_month_end_hkd",
+    "file": "schema-valid-full/03_create_month_end_hkd.json",
+    "business_fragment": "business-fragments/03_create_month_end_hkd_agsj187_fragment.json",
+    "title": "Create monthly/month-end SI",
+    "expected": "Expected to exercise month-end-run branch. Requires Cycle code M to match generated AgsJ187 enum.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "04_amend_suspend_existing",
+    "file": "schema-valid-full/04_amend_suspend_existing.json",
+    "business_fragment": "business-fragments/04_amend_suspend_existing_agsj187_fragment.json",
+    "title": "Amend existing SI and set suspend period",
+    "expected": "Expected to reach AMEND/update branch if the AGSTINT record exists and status is P.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "05_delete_existing",
+    "file": "schema-valid-full/05_delete_existing.json",
+    "business_fragment": "business-fragments/05_delete_existing_agsj187_fragment.json",
+    "title": "Delete/cancel existing SI",
+    "expected": "Expected to reach DELETE branch and set AGSTINT-CODE-STAT to C if record exists and status is P.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "06_invalid_missing_customer",
+    "file": "schema-valid-full/06_invalid_missing_customer.json",
+    "business_fragment": "business-fragments/06_invalid_missing_customer_agsj187_fragment.json",
+    "title": "Invalid: missing both CIFNO and customer number",
+    "expected": "Expected message seq 230 with reference CIFNO OR CUST AC.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "07_invalid_action",
+    "file": "schema-valid-full/07_invalid_action.json",
+    "business_fragment": "business-fragments/07_invalid_action_agsj187_fragment.json",
+    "title": "Invalid: action not C/A/D",
+    "expected": "Expected message seq 420 with reference ACTION.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "08_invalid_crac_type",
+    "file": "schema-valid-full/08_invalid_crac_type.json",
+    "business_fragment": "business-fragments/08_invalid_crac_type_agsj187_fragment.json",
+    "title": "Invalid: CRAC-TYPE not I/O",
+    "expected": "Expected message seq 420 with reference CRAC TYPE.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "09_invalid_currency_pair_cny_usd",
+    "file": "schema-valid-full/09_invalid_currency_pair_cny_usd.json",
+    "business_fragment": "business-fragments/09_invalid_currency_pair_cny_usd_agsj187_fragment.json",
+    "title": "Invalid: one side CNY and other side non-CNY",
+    "expected": "Expected message seq 231 invalid exchange currency pair.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "10_invalid_both_dr_and_cr_amount",
+    "file": "schema-valid-full/10_invalid_both_dr_and_cr_amount.json",
+    "business_fragment": "business-fragments/10_invalid_both_dr_and_cr_amount_agsj187_fragment.json",
+    "title": "Invalid: both debit amount and credit amount supplied",
+    "expected": "Expected message seq 230 with reference DR AMT OR CR AMT.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "11_invalid_missing_bene_ac",
+    "file": "schema-valid-full/11_invalid_missing_bene_ac.json",
+    "business_fragment": "business-fragments/11_invalid_missing_bene_ac_agsj187_fragment.json",
+    "title": "Invalid: beneficiary account missing",
+    "expected": "Expected message seq 404 with reference BENE AC.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "12_invalid_daily_with_month_end",
+    "file": "schema-valid-full/12_invalid_daily_with_month_end.json",
+    "business_fragment": "business-fragments/12_invalid_daily_with_month_end_agsj187_fragment.json",
+    "title": "Invalid: daily/weekly/bi-weekly cycle with month-end flag",
+    "expected": "Expected message seq 403 with reference MONTH-END.",
+    "required_validation_errors": []
+  },
+  {
+    "id": "13_invalid_indefinite_with_term_date",
+    "file": "schema-valid-full/13_invalid_indefinite_with_term_date.json",
+    "business_fragment": "business-fragments/13_invalid_indefinite_with_term_date_agsj187_fragment.json",
+    "title": "Invalid: indefinite term type but term date supplied",
+    "expected": "Expected message seq 403 with reference TERM. DATE.",
+    "required_validation_errors": []
+  }
+]

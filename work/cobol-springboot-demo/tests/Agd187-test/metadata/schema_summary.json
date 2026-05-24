@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-05-23T13:29:52",
+  "source_yaml": "/mnt/data/Agd187.yaml",
+  "endpoint": {
+    "method": "POST",
+    "path": "/api/cobol-springboot-boc/agd187"
+  },
+  "root_required": [
+    "bgi60021Area",
+    "commarea",
+    "journal"
+  ],
+  "required_counts": {
+    "commarea": 11,
+    "journal": 686,
+    "bgi60021Area": 5
+  },
+  "journal_property_count": 686,
+  "agsj187_field_count": 41,
+  "notes": [
+    "Updated YAML now exposes journal as request input, so generated payloads place AGSJ187 fields under request.journal.",
+    "The Journal schema currently requires 686 flattened fields, including many non-AGJ187 transaction layouts. Non-business-required fields are filled with neutral defaults.",
+    "Enum code values are inferred from Java usage and previous COBOL naming: Action C/A/D, Suspend Y/N, SpecialDebit Y/N, AmtType R, ProcessTime D, Cycle D/W/M, MonthEndRun blank/Y/N, TermType I/D, CracType I/O. Adjust if AgsJ187.java defines different 88-level values."
+  ]
+}

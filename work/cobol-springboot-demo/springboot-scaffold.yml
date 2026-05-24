@@ -1,0 +1,60 @@
+groupId: free.servpp
+artifactId: cobol-springboot-boc
+version: 0.0.1-SNAPSHOT
+basePackage: free.servpp.boc
+generatedPackage: boc.java
+mapperPackage: boc.java
+controllerScanPackage: boc.java
+applicationClassName: CobolSpringbootBocApplication
+appTitle: BOC ONLSOURCE COBOL SpringBoot
+serverPort: "8081"
+sqliteDb: ./target/boc.sqlite
+defaultDate: "20260522"
+cobol2javaMainClass: free.cobol2java.BatchConvertor
+cobol2javaJar: ../tools/cobol2java-convertor.jar
+optimizjavaJar: ../tools/optimizjava.jar
+cobolSourceDir: /home/lidong/cb2j_cics/cobol2java/convertor/src/main/COBOL/boc
+cobolCopyDir: copybook
+cobolFormat: FIXED
+cobolEncoding: GB18030
+cobolSuffixes:
+  - .COB
+  - .cbl
+  - .sqb
+  - .c
+  - .cpy
+  - .jcl
+cobolCompileFiles:
+  - "*ONLSOURCE*/*"
+outputDir: ./
+tests: ./tests
+flow:
+  steps:
+  - scaffold
+  - convert
+  - simplify-copy-util
+  - unwrap
+  - openapi
+  - demo-database
+  - demo-page
+  - package
+unwrap:
+  methodName: procedure
+openapi:
+  controllerPackage: boc.java.controllers
+  modelPackage: boc.java.models.api
+  setterPackage: boc.java.models.setters
+  basePath: /api/boc
+apiIo:
+  shared: []
+  programs: {}
+packaging:
+  skipTests: true
+  goals:
+  - package
+programs:
+  - Agd187
+  - Agdq180
+  - Agdq187
+  - Mbd820
+  - Mbdqgp

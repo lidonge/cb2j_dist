@@ -1,0 +1,200 @@
+# API IO configuration example for the generated mbm-agdq180 Spring Boot project.
+#
+# Source inspected:
+# /home/lidong/test/cobol-springboot-toolkit-1.0-SNAPSHOT/work/mbm-agdq180-springboot/generated-sources
+#
+# The example covers all entry programs under:
+#   cobol2java/src/main/java/boc/java/SOURCE
+#   cobol2java/src/main/java/boc/java/ONLSOURCE
+#
+# Parameter entries intentionally omit "fields"; ApiFieldToOpenApiGenerator
+# expands each configured source model automatically.
+
+apiIo:
+  procedureUnwrap:
+    commonHeads:
+      - dfhcommarea
+      - ealcomm
+      - ealcmhd
+    inputs:
+      - eawfidi
+      - eawfidi_0
+      - agwq180i
+      - agwq187i
+      - mbwqgpi
+      - "*i"
+    outputs:
+      - ealcmhdo
+      - ealtxhdo
+      - eawfido
+      - eawfido_0
+      - "*o"
+    programs:
+      Agd187:
+        commonHeads:
+          - dfhcommarea
+        inputs:
+          - bgi60021Area
+          - bgi60021
+        outputs:
+          - c3lmsga
+          - c3fjnlArea
+          - eawfido_0
+      Agdq180:
+        commonHeads:
+          - ealcmhd
+        inputs:
+          - eawfidi
+          - ealtxhd
+          - agwq180i
+        outputs:
+          - ealcmhdo
+          - ealtxhdo
+          - eawfido
+      Agdq187:
+        commonHeads:
+          - ealcmhd
+        inputs:
+          - eawfidi
+          - agwq187i
+          - bgi00409Area
+          - bgi00409
+          - bgi60021Area
+          - bgi60021
+          - bgi00400Area
+          - bgi00400
+        outputs:
+          - ealcmhdo
+          - eawfido
+      Mbd820:
+        commonHeads:
+          - dfhcommarea
+        inputs:
+          - bgi20400Area
+          - bgi20400
+        outputs:
+          - c3lmsga
+          - c3fjnlArea
+          - eawfido_0
+      Mbdqgp:
+        commonHeads:
+          - ealcmhd
+        inputs:
+          - eawfidi_0
+          - mbwqgpi
+          - bgi00400Area
+          - bgi00400
+          - bgi20400Area
+          - bgi20400
+        outputs:
+          - ealcmhdo
+          - ealtxhdo
+          - c3fjnlArea
+          - eawfido_0
+
+  programs:
+    Agd187:
+      parameters:
+        request:
+          - name: commarea
+            source: dfhcommarea
+          - name: bgi60021Area
+            source: bgi60021Area
+          - name: journal
+            source: c3fjnlArea
+        response:
+          - name: messages
+            source: c3lmsga
+          - name: outputForm
+            source: eawfido_0
+
+    Agdq180:
+      parameters:
+        request:
+          - name: header
+            source: ealcmhd
+            source: ealtxhd
+          - name: formEnvelope
+            source: eawfidi
+            required: false
+          - name: inputForm
+            source: agwq180i
+        response:
+          - name: header
+            source: ealcmhdo
+            source: ealtxhdo
+          - name: outputForm
+            source: eawfido
+
+    Agdq187:
+      parameters:
+        request:
+          - name: header
+            source: ealcmhd
+          - name: formEnvelope
+            source: eawfidi
+            required: false
+          - name: inputForm
+            source: agwq187i
+          - name: bgi00409Area
+            source: bgi00409Area
+          - name: bgi00409
+            source: bgi00409
+          - name: bgi60021Area
+            source: bgi60021Area
+          - name: bgi60021
+            source: bgi60021
+          - name: bgi00400Area
+            source: bgi00400Area
+          - name: bgi00400
+            source: bgi00400
+        response:
+          - name: header
+            source: ealcmhdo
+          - name: outputForm
+            source: eawfido
+
+    Mbd820:
+      parameters:
+        request:
+          - name: commarea
+            source: dfhcommarea
+          - name: bgi20400Area
+            source: bgi20400Area
+          - name: bgi20400
+            source: bgi20400
+        response:
+          - name: messages
+            source: c3lmsga
+          - name: journal
+            source: c3fjnlArea
+          - name: outputForm
+            source: eawfido_0
+
+    Mbdqgp:
+      parameters:
+        request:
+          - name: header
+            source: ealcmhd
+          - name: formEnvelope
+            source: eawfidi_0
+            required: false
+          - name: inputForm
+            source: mbwqgpi
+          - name: bgi00400Area
+            source: bgi00400Area
+          - name: bgi00400
+            source: bgi00400
+          - name: bgi20400Area
+            source: bgi20400Area
+          - name: bgi20400
+            source: bgi20400
+        response:
+          - name: header
+            source: ealcmhdo
+          - name: transactionHeader
+            source: ealtxhdo
+          - name: journal
+            source: c3fjnlArea
+          - name: outputForm
+            source: eawfido_0

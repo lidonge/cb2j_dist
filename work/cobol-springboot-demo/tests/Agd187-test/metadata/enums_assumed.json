@@ -1,0 +1,39 @@
+{
+  "Agj187Action": {
+    "CREATE": "C",
+    "AMEND": "A",
+    "DELETE": "D"
+  },
+  "Agj187SuspendFlg": {
+    "YES": "Y",
+    "NO": "N"
+  },
+  "Agj187SpecialDebit": {
+    "YES": "Y",
+    "NO": "N"
+  },
+  "Agj187AmtType": {
+    "REMAIN": "R"
+  },
+  "Agj187ProcessTime": {
+    "DEFAULT_VALID": "D"
+  },
+  "Agj187Cycle": {
+    "DAILY": "D",
+    "WEEKLY": "W",
+    "MONTHLY_OR_MONTH_END": "M"
+  },
+  "Agj187MonthEndRun": {
+    "N/A": " ",
+    "YES": "Y",
+    "NO": "N"
+  },
+  "Agj187TermType": {
+    "INDEFINITE": "I",
+    "DATE": "D"
+  },
+  "Agj187CracType": {
+    "INTERNAL": "I",
+    "OTHER": "O"
+  }
+}

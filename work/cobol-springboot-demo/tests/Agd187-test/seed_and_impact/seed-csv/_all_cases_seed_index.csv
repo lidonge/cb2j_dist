@@ -1,0 +1,40 @@
+case_id,json_file,step,operation,table_name,no_cif,no_cust,num_ref,stat_ac_clo,code_stat,type_cyc,date_cyc,type_end,date_start,date_end,date_temp_hold_sta,date_temp_hold_end,set_cur,set_amt,ac_dr,name_dr,cur_dr,amt_dr,bank_chrg,bene_bank,bene_brch,bene_ac,bene_bank_name,name_addr_1,name_addr_2,cur_cr,amt_equv,no_ref,ind_suspend,ind_exec_time,spec_debit,set_amt_type,date_next_txn,date_ac_next_txn,notes
+01,01_create_daily_hkd_success.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+01,01_create_daily_hkd_success.json,20,DELETE,TB_AGSTINT,12345678901,,1001,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+01,01_create_daily_hkd_success.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+02,02_create_weekly_hkd_with_term_date.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+02,02_create_weekly_hkd_with_term_date.json,20,DELETE,TB_AGSTINT,12345678901,,1002,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+02,02_create_weekly_hkd_with_term_date.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+03,03_create_month_end_hkd.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+03,03_create_month_end_hkd.json,20,DELETE,TB_AGSTINT,12345678901,,1003,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+03,03_create_month_end_hkd.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+04,04_amend_suspend_existing.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+04,04_amend_suspend_existing.json,20,UPSERT,TB_AGSTINT,12345678901,,1001,,P,D,01,I,20260601,0,20260701,20260715,HKD,1200.0,1212345678901,TEST CUSTOMER ONE DR ACCOUNT,HKD,1200.0,12.0,012,001,9876543210,TEST BENE BANK,BENEFICIARY NAME,BENEFICIARY ADDRESS LINE 2,HKD,0.0,REF20260523001A,Y,D,N,R,20260601,20260601,必须存在，且 CODE_STAT=P；否则 AMEND/DELETE 会报 RECORD NOT FOUND 或 INSTRUCTION EXPIRED/CANCELLED。
+04,04_amend_suspend_existing.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+05,05_delete_existing.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+05,05_delete_existing.json,20,UPSERT,TB_AGSTINT,12345678901,,1001,,P,D,01,I,20260601,0,0,0,HKD,1000.0,1212345678901,TEST CUSTOMER ONE DR ACCOUNT,HKD,1000.0,10.0,012,001,9876543210,TEST BENE BANK,BENEFICIARY NAME,BENEFICIARY ADDRESS LINE 2,HKD,0.0,REF20260523001,N,D,N,R,20260601,20260601,必须存在，且 CODE_STAT=P；否则 AMEND/DELETE 会报 RECORD NOT FOUND 或 INSTRUCTION EXPIRED/CANCELLED。
+05,05_delete_existing.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+06,06_invalid_missing_customer.json,10,NO_SEED,TB_AGAIF,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,本用例故意使 CIFNO=0 且 CUST-NO=0；不要铺客户主档，否则无法测试缺客户入参校验。
+06,06_invalid_missing_customer.json,20,DELETE,TB_AGSTINT,0,,1006,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,可选清理；由于 CIFNO=0，理论上不会进入有效 AGSTINT 更新。
+06,06_invalid_missing_customer.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+07,07_invalid_action.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+07,07_invalid_action.json,20,DELETE,TB_AGSTINT,12345678901,,1007,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,可选清理；本用例应在 ACTION 校验处失败，不应更新 AGSTINT。
+07,07_invalid_action.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+08,08_invalid_crac_type.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+08,08_invalid_crac_type.json,20,DELETE,TB_AGSTINT,12345678901,,1008,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+08,08_invalid_crac_type.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+09,09_invalid_currency_pair_cny_usd.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+09,09_invalid_currency_pair_cny_usd.json,20,DELETE,TB_AGSTINT,12345678901,,1009,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+09,09_invalid_currency_pair_cny_usd.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+10,10_invalid_both_dr_and_cr_amount.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+10,10_invalid_both_dr_and_cr_amount.json,20,DELETE,TB_AGSTINT,12345678901,,1010,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+10,10_invalid_both_dr_and_cr_amount.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+11,11_invalid_missing_bene_ac.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+11,11_invalid_missing_bene_ac.json,20,DELETE,TB_AGSTINT,12345678901,,1011,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+11,11_invalid_missing_bene_ac.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+12,12_invalid_daily_with_month_end.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+12,12_invalid_daily_with_month_end.json,20,DELETE,TB_AGSTINT,12345678901,,1012,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+12,12_invalid_daily_with_month_end.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
+13,13_invalid_indefinite_with_term_date.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+13,13_invalid_indefinite_with_term_date.json,20,DELETE,TB_AGSTINT,12345678901,,1013,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+13,13_invalid_indefinite_with_term_date.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。

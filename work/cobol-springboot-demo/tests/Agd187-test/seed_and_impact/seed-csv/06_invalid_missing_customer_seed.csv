@@ -1,0 +1,4 @@
+case_id,json_file,step,operation,table_name,no_cif,no_cust,num_ref,stat_ac_clo,code_stat,type_cyc,date_cyc,type_end,date_start,date_end,date_temp_hold_sta,date_temp_hold_end,set_cur,set_amt,ac_dr,name_dr,cur_dr,amt_dr,bank_chrg,bene_bank,bene_brch,bene_ac,bene_bank_name,name_addr_1,name_addr_2,cur_cr,amt_equv,no_ref,ind_suspend,ind_exec_time,spec_debit,set_amt_type,date_next_txn,date_ac_next_txn,notes
+06,06_invalid_missing_customer.json,10,NO_SEED,TB_AGAIF,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,本用例故意使 CIFNO=0 且 CUST-NO=0；不要铺客户主档，否则无法测试缺客户入参校验。
+06,06_invalid_missing_customer.json,20,DELETE,TB_AGSTINT,0,,1006,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,可选清理；由于 CIFNO=0，理论上不会进入有效 AGSTINT 更新。
+06,06_invalid_missing_customer.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。

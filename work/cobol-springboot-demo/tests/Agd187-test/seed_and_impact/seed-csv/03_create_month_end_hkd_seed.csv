@@ -1,0 +1,4 @@
+case_id,json_file,step,operation,table_name,no_cif,no_cust,num_ref,stat_ac_clo,code_stat,type_cyc,date_cyc,type_end,date_start,date_end,date_temp_hold_sta,date_temp_hold_end,set_cur,set_amt,ac_dr,name_dr,cur_dr,amt_dr,bank_chrg,bene_bank,bene_brch,bene_ac,bene_bank_name,name_addr_1,name_addr_2,cur_cr,amt_equv,no_ref,ind_suspend,ind_exec_time,spec_debit,set_amt_type,date_next_txn,date_ac_next_txn,notes
+03,03_create_month_end_hkd.json,10,UPSERT,TB_AGAIF,12345678901,12000123456789,,N,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,客户主档铺底：CIF/客户号匹配，且客户未关闭。
+03,03_create_month_end_hkd.json,20,DELETE,TB_AGSTINT,12345678901,,1003,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,清理同 key 的 AGSTINT，保证 CREATE 用例不会因 STORE REF 已存在而失败。
+03,03_create_month_end_hkd.json,90,MOCK_OK,EXTERNAL_ROUTINES,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,外部例程/服务需 mock 为成功：AGMCCIN/AGMSPEF/AGMMIDC/C3DYMD/BOC060021。
